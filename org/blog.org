@@ -1,0 +1,74 @@
+* Switching from Arch Linux to NixOS                                 :linux:nix:
+:PROPERTIES:
+:NAVI_ID: post-nixos-switch
+:EXPORT_FILE_NAME: post-nixos-switch.html
+:EXPORT_DATE: 2024-09-06
+:END:
+
+** Subheader
+
+Testing!
+
+* Writing a static site generator in Common Lisp                      :lisp:dev:
+:PROPERTIES:
+:NAVI_ID: post-navi
+:EXPORT_FILE_NAME: post-navi.html
+:EXPORT_DATE: 2024-09-05
+:END:
+
+* Customizing Emacs/CL integration                                  :emacs:lisp:
+:PROPERTIES:
+:NAVI_ID: post-cl-emacs-integration
+:EXPORT_FILE_NAME: post-cl-emacs-integration.html
+:EXPORT_DATE: 2024-09-06
+:END:
+
+Emacs is a wonderful editor for editing Common Lisp code. However, each project
+is unique (lisp projects especially so) and sometimes you need some
+domain-specific tooling. This article uses [[https://github.com/joaotavora/sly][SLY]], but similar things should be
+possible in [[https://slime.common-lisp.dev/][Slime]].
+
+** Sending lisp objects to the REPL
+
+You can send lisp objects (including CLOS references) to the REPL by using
+=slynk-mrepl:copy-to-repl-in-emacs=. This can be super useful in some GUI
+applications that allows the user to select objects from inside the application
+itself. For instance, a game engine may allow you to select objects by using
+raycasting when they are clicked on with a mouse, or when a key is pressed.
+
+To send an object from the CL image to Emacs:
+
+#+begin_src lisp
+(let ((object (select-object-at x y))
+  (slynk-mrepl:copy-to-repl-in-emacs (list object) :blurb "")))
+#+end_src
+
+The selected object can then be inspected and used from the REPL as normal.
+
+It's also useful to be able to tell the CL image to send a lisp object from
+Emacs. Let's define a helper function to do that:
+
+#+begin_src elisp
+(defun sly-eval-copy-to-repl (sexp)
+  (sly-eval
+   `(slynk-mrepl:copy-to-repl-in-emacs
+     (cl:list ,sexp) :blurb "" :pop-to-buffer nil)))
+#+end_src
+
+** Custom inspectors
+
+The SLY inspector is great for many things, but sometimes your objects are
+structured in a less than ideal way. By building a custom inspector tailored for
+a specific class of objects, you can get a more streamlined experience.
+
+There are many ways of building these kinds of "application-in-a-buffer"
+interfaces in Emacs.
+
+* Testing
+:PROPERTIES:
+:NAVI_ID: post-test
+:EXPORT_FILE_NAME: post-test.html
+:EXPORT_DATE: 2023-08-05
+:END:
+
+Hello
