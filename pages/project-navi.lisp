@@ -30,4 +30,8 @@
         (:span
           "Navi is implemented in Common Lisp. It uses Spinneret to render the S-expressions to HTML, and ")
         (:a :href "https://shinmera.com/" "Shinmera")
-        (:span "'s excellent LASS library for outputting CSS.")))))
+        (:span "'s excellent LASS library for outputting CSS.")
+        (:span
+          "Nav Common Lisp. It uses Spinneret to render the S-expressions to HTML, and "
+          (:a :href "https://shinmera.com/" "Shinmera")
+          "'s excellent LASS library for outputting CSS.")))))
