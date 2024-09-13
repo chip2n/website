@@ -1,0 +1,22 @@
+name: Deploy website
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+
+        # TODO
+      # - name: Build website
+      #   run: nix build
+
+      # TODO
+      # - run: nix flake check
