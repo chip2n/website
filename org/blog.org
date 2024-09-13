@@ -36,33 +36,35 @@ applications that allows the user to select objects from inside the application
 itself. For instance, a game engine may allow you to select objects by using
 raycasting when they are clicked on with a mouse, or when a key is pressed.
 
-To send an object from the CL image to Emacs:
+To send an object from the CL image to Emacs, first allow the inferior Lisp to
+evaluate arbitrary forms in Emacs:
+
+#+begin_src elisp
+(setq sly-enable-evaluate-in-emacs t)
+#+end_src
+
+Then, to send an object from the CL image to the REPL, run the following:
 
 #+begin_src lisp
-(let ((object (select-object-at x y))
-  (slynk-mrepl:copy-to-repl-in-emacs (list object) :blurb "")))
+(let ((object 123))
+  (slynk-mrepl:copy-to-repl-in-emacs (list object) :blurb ""))
 #+end_src
 
 The selected object can then be inspected and used from the REPL as normal.
 
-It's also useful to be able to tell the CL image to send a lisp object from
-Emacs. Let's define a helper function to do that:
+Since you can also send arbitrary S-expressions from Emacs to the image, we can
+write a little helper function to allow us to output any CL object from Emacs
+itself. For instance, you could set up keybindings that sends any object to the
+REPL so you can inspect it further:
 
 #+begin_src elisp
 (defun sly-eval-copy-to-repl (sexp)
   (sly-eval
    `(slynk-mrepl:copy-to-repl-in-emacs
      (cl:list ,sexp) :blurb "" :pop-to-buffer nil)))
+
+(sly-eval-copy-to-repl '(cl:+ 1 2 3))
 #+end_src
-
-** Custom inspectors
-
-The SLY inspector is great for many things, but sometimes your objects are
-structured in a less than ideal way. By building a custom inspector tailored for
-a specific class of objects, you can get a more streamlined experience.
-
-There are many ways of building these kinds of "application-in-a-buffer"
-interfaces in Emacs.
 
 * Testing
 :PROPERTIES:
