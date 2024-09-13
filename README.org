@@ -1,3 +1,3 @@
 * Personal Website
-[[https://github.com/chip2n/zig-obj/workflows/Deploy%20website/badge.svg]]
+[[https://github.com/chip2n/website/workflows/Deploy%20website/badge.svg]]
 
