@@ -1,6 +1,6 @@
 * Sending Common Lisp objects to the REPL                           :emacs:lisp:
 :PROPERTIES:
-:NAVI_ID: post-cl-emacs-integration
+:NAVI_ID: post-cl-object-to-repl
 :EXPORT_FILE_NAME: post-cl-emacs-integration.html
 :EXPORT_DATE: 2024-09-06
 :END:
