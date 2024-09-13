@@ -135,28 +135,33 @@
     (loop for child in (navi/org:nodes node)
           do (render-node child))))
 
-(defun start ()
+(defun build (out-path)
+  ;; TODO doing this at top of file also
+  (setf navi:*output-dir* out-path)
+
   ;; Currently only considers top-level sections with export properties set
-  (progn
-    (setf *posts* (make-hash-table :test 'equal))
+  (setf *posts* (make-hash-table :test 'equal))
 
-    (let ((org (navi/org:parse-file (org-path "blog.org"))))
-      (loop for node in (navi/org:nodes org)
-            for post = (parse-post-properties node)
-            when post
-              do (setf (gethash (post-file-name post) *posts*) post)))
+  (let ((org (navi/org:parse-file (org-path "blog.org"))))
+    (loop for node in (navi/org:nodes org)
+          for post = (parse-post-properties node)
+          when post
+            do (setf (gethash (post-file-name post) *posts*) post)))
 
-    (loop for post in (post-list)
-          do (let ((p post))
-               (navi:add-page
-                (intern (str:upcase (post-id p)))
-                (post-file-name p)
-                ;; TODO Don't want to have to duplicate the page body like this
-                `((blog-page :post ,p))
-                (lambda () (spinneret:with-html (:doctype)
-                             (blog-page :post p))))))
+  (loop for post in (post-list)
+        do (let ((p post))
+             (navi:add-page
+              (intern (str:upcase (post-id p)))
+              (post-file-name p)
+              ;; TODO Don't want to have to duplicate the page body like this
+              `((blog-page :post ,p))
+              (lambda () (spinneret:with-html (:doctype)
+                      (blog-page :post p))))))
 
-    (navi:build-pages))
+  (navi:build-pages))
+
+(defun start ()
+  (build (out-path))
   (navi:start))
 
 (defun stop ()

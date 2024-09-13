@@ -1,4 +1,5 @@
 (defpackage #:site
   (:use #:cl #:spinneret)
   (:export #:start
-           #:stop))
+           #:stop
+           #:build))

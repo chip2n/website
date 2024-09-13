@@ -1,4 +1,5 @@
 {
+  description = "My personal website";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
   };
@@ -65,6 +66,10 @@
       inherit website;
     });
     lisp = sbcl'.withPackages (ps: [ ps.website ]);
+    build-site = pkgs.writeScriptBin "build-site" ''
+      #!/usr/bin/env bash
+      ${lisp}/bin/sbcl --script deploy.lisp
+    '';
     run-site = pkgs.writeScriptBin "run-site" ''
       ${lisp}/bin/sbcl --no-userinit \
                        --eval '(require :asdf)' \
@@ -82,7 +87,12 @@
         type = "app";
         program = "${run-site}/bin/run-site";
       };
+      deploy = {
+        type = "app";
+        program = "${build-site}/bin/build-site";
+      };
     };
+    packages.${system}.default = build-site;
     devShells.${system}.default = pkgs.mkShell {
       shellHook = ''
         ${run-repl}/bin/run-repl

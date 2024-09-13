@@ -4,7 +4,7 @@
   `(:a :href ,url ,@attrs ,label ,@body))
 
 (defun out-path ()
-  "/tmp/out")
+  "/tmp/out/")
 
 (defun asset-path (file)
   (asdf:system-relative-pathname 'website (merge-pathnames "assets/" file)))
