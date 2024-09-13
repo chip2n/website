@@ -1,21 +1,3 @@
-* Switching from Arch Linux to NixOS                                 :linux:nix:
-:PROPERTIES:
-:NAVI_ID: post-nixos-switch
-:EXPORT_FILE_NAME: post-nixos-switch.html
-:EXPORT_DATE: 2024-09-06
-:END:
-
-** Subheader
-
-Testing!
-
-* Writing a static site generator in Common Lisp                      :lisp:dev:
-:PROPERTIES:
-:NAVI_ID: post-navi
-:EXPORT_FILE_NAME: post-navi.html
-:EXPORT_DATE: 2024-09-05
-:END:
-
 * Sending Common Lisp objects to the REPL                           :emacs:lisp:
 :PROPERTIES:
 :NAVI_ID: post-cl-emacs-integration
@@ -68,12 +50,3 @@ REPL so you can inspect it further:
 
 (sly-eval-copy-to-repl '(cl:+ 1 2 3))
 #+end_src
-
-* Testing
-:PROPERTIES:
-:NAVI_ID: post-test
-:EXPORT_FILE_NAME: post-test.html
-:EXPORT_DATE: 2023-08-05
-:END:
-
-Hello
