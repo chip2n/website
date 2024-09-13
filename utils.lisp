@@ -3,15 +3,17 @@
 (navi:define-tag link (body attrs &key label url)
   `(:a :href ,url ,@attrs ,label ,@body))
 
-;; TODO actually want a separate system for the site and the static site generator
 (defun out-path ()
-  (asdf:system-relative-pathname 'personal-site "refactor/out/"))
+  "/tmp/out")
 
 (defun asset-path (file)
-  (asdf:system-relative-pathname 'personal-site (merge-pathnames "refactor/site/assets/" file)))
+  (asdf:system-relative-pathname 'website (merge-pathnames "assets/" file)))
 
 (defun org-path (file)
-  (asdf:system-relative-pathname 'personal-site (merge-pathnames "refactor/site/org/" file)))
+  (asdf:system-relative-pathname 'website (merge-pathnames "org/" file)))
+
+(defun tools-path (file)
+  (asdf:system-relative-pathname 'website (merge-pathnames "tools/" file)))
 
 (defun embed-asset (file)
   (spinneret:with-html

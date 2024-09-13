@@ -1,0 +1,92 @@
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+  };
+  outputs = { self, nixpkgs, ... }: let
+    system = "x86_64-linux";
+    name = "site";
+    src = ./.;
+    pkgs = nixpkgs.legacyPackages.${system};
+    trivial-file-watch = pkgs.sbcl.buildASDFSystem {
+      pname = "trivial-file-watch";
+      version = "0.0.1";
+      src = pkgs.fetchFromGitHub {
+        owner = "chip2n";
+        repo = "trivial-file-watch";
+        rev = "cdb1bd21bee4944e19a934b97b1c836161878752";
+        hash = "sha256-Jgo52cso68Bn5RfWyjUQVsGiICT/80dKoO2n5yJD014=";
+      };
+      systems = [ "trivial-file-watch" ];
+      lispLibs = with pkgs.sbcl.pkgs; [
+        bt-semaphore
+        cl-inotify
+        cl-fad
+      ];
+    };
+    navi = pkgs.sbcl.buildASDFSystem {
+      pname = "navi";
+      version = "0.0.1";
+      src = pkgs.fetchFromGitHub {
+        owner = "chip2n";
+        repo = "navi";
+        rev = "e3f0244943b255c68030585c9fb839c4e9a8bb0e";
+        hash = "sha256-k5MxevLEzrfnXlMI0nbme3DGExODUF2lhR1jlnLrJiE=";
+      };
+      systems = [ "navi" ];
+      lispLibs = with pkgs.sbcl.pkgs; [
+        alexandria
+        trivial-file-watch
+        clack
+        clack-handler-hunchentoot
+        lack-middleware-static
+        websocket-driver
+        spinneret
+        lass
+        arrows
+        cl-org-mode
+        cl-ppcre
+        cl-fad
+        str
+      ];
+    };
+    website = pkgs.sbcl.buildASDFSystem {
+      pname = "website";
+      version = "0.0.1";
+      src = ./.;
+      systems = [ "website" ];
+      lispLibs = with pkgs.sbcl.pkgs; [
+        navi
+        spinneret
+      ];
+    };
+    sbcl' = pkgs.sbcl.withOverrides (self: super: {
+      inherit trivial-file-watch;
+      inherit navi;
+      inherit website;
+    });
+    lisp = sbcl'.withPackages (ps: [ ps.website ]);
+    run-site = pkgs.writeScriptBin "run-site" ''
+      ${lisp}/bin/sbcl --no-userinit \
+                       --eval '(require :asdf)' \
+                       --eval '(require :website)' \
+                       --eval '(site:start)'
+    '';
+    run-repl = pkgs.writeScriptBin "run-repl" ''
+      ${lisp}/bin/sbcl --no-userinit \
+                       --eval '(require :asdf)' \
+                       --eval '(require :website)'
+    '';
+  in {
+    apps.${system} = {
+      default = {
+        type = "app";
+        program = "${run-site}/bin/run-site";
+      };
+    };
+    devShells.${system}.default = pkgs.mkShell {
+      shellHook = ''
+        ${run-repl}/bin/run-repl
+      '';
+    };
+  };
+}

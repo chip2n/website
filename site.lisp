@@ -96,9 +96,7 @@
               (write-string (navi/org:source-code node) temp)
               (finish-output temp)
               (uiop:run-program
-               (format nil "node ~a ~a"
-                       (navi/utils:system-path "tools/syntax.js")
-                       path)
+               (format nil "node ~a ~a" (tools-path "syntax.js") path)
                :output s
                :error-output *standard-output*)))))
     (spinneret:with-html
@@ -137,30 +135,28 @@
     (loop for child in (navi/org:nodes node)
           do (render-node child))))
 
-;; TODO do lazily on first build?
-;; Currently only considers top-level sections with export properties set
-(progn
-  (setf *posts* (make-hash-table :test 'equal))
-
-  (let ((org (navi/org:parse-file "/home/chip/dev/personal-site/refactor/site/org/blog.org")))
-    (loop for node in (navi/org:nodes org)
-          for post = (parse-post-properties node)
-          when post
-            do (setf (gethash (post-file-name post) *posts*) post)))
-
-  (loop for post in (post-list)
-        do (let ((p post))
-             (navi:add-page
-              (intern (str:upcase (post-id p)))
-              (post-file-name p)
-              ;; TODO Don't want to have to duplicate the page body like this
-              `((blog-page :post ,p))
-              (lambda () (spinneret:with-html (:doctype)
-                      (blog-page :post p))))))
-
-  (navi:build-pages))
-
 (defun start ()
+  ;; Currently only considers top-level sections with export properties set
+  (progn
+    (setf *posts* (make-hash-table :test 'equal))
+
+    (let ((org (navi/org:parse-file (org-path "blog.org"))))
+      (loop for node in (navi/org:nodes org)
+            for post = (parse-post-properties node)
+            when post
+              do (setf (gethash (post-file-name post) *posts*) post)))
+
+    (loop for post in (post-list)
+          do (let ((p post))
+               (navi:add-page
+                (intern (str:upcase (post-id p)))
+                (post-file-name p)
+                ;; TODO Don't want to have to duplicate the page body like this
+                `((blog-page :post ,p))
+                (lambda () (spinneret:with-html (:doctype)
+                             (blog-page :post p))))))
+
+    (navi:build-pages))
   (navi:start))
 
 (defun stop ()
