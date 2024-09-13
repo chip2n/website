@@ -16,7 +16,7 @@ Testing!
 :EXPORT_DATE: 2024-09-05
 :END:
 
-* Customizing Emacs/CL integration                                  :emacs:lisp:
+* Sending Common Lisp objects to the REPL                           :emacs:lisp:
 :PROPERTIES:
 :NAVI_ID: post-cl-emacs-integration
 :EXPORT_FILE_NAME: post-cl-emacs-integration.html
@@ -25,8 +25,11 @@ Testing!
 
 Emacs is a wonderful editor for editing Common Lisp code. However, each project
 is unique (lisp projects especially so) and sometimes you need some
-domain-specific tooling. This article uses [[https://github.com/joaotavora/sly][SLY]], but similar things should be
-possible in [[https://slime.common-lisp.dev/][Slime]].
+domain-specific tooling. One thing that's particularly useful is sending object
+to the REPL.
+
+(We're using [[https://github.com/joaotavora/sly][SLY]] in this post, but similar things should be possible in [[https://slime.common-lisp.dev/][Slime]] as
+well).
 
 ** Sending lisp objects to the REPL
 
