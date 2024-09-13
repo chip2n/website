@@ -60,7 +60,7 @@
   `(page ,@attrs
      (page-header :title (post-header ,post))
      (:div :class "post-meta-bar"
-       (:span "2024-01-01")
+       (:span (post-date ,post))
        (:ul :class "h-menu"
          (loop for tag in (post-tags ,post)
                do (:li :class "post-meta-bar-tag" (str:concat "#" tag)))))
