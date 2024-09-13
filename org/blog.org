@@ -10,8 +10,8 @@ is unique (lisp projects especially so) and sometimes you need some
 domain-specific tooling. One thing that's particularly useful is sending object
 to the REPL.
 
-(We're using [[https://github.com/joaotavora/sly][SLY]] in this post, but similar things should be possible in [[https://slime.common-lisp.dev/][Slime]] as
-well).
+(We're using [[https://github.com/joaotavora/sly][SLY]] in this post, but similar things should be possible in
+[[https://slime.common-lisp.dev/][Slime]] as well).
 
 ** Sending lisp objects to the REPL
 
