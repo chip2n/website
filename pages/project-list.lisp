@@ -54,6 +54,8 @@
   (.project-thumb
    :width "128px"
    :height "96px"
+   :flex-shrink "0"
+   :flex-grow "0"
    :border-radius "16px"
    :outline "1px solid #FFFFFF20"
    :object-fit "cover"))
