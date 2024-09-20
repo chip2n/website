@@ -28,7 +28,7 @@
          (:ul :class "h-menu"
            ,@(loop for link in links collect `(:li ,link)))
          ;; TODO implement rss
-         (:a :class "menu-item-icon" :href "/index.html"
+         (:a :class "menu-item-icon" :href "index.html"
            (embed-asset "icon-rss.svg"))
          (:a :class "menu-item-icon" :href "https://github.com/chip2n"
            (embed-asset "icon-github.svg"))))
