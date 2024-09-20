@@ -1,3 +1,27 @@
 * Personal Website
 [[https://github.com/chip2n/website/workflows/Deploy%20website/badge.svg]]
 
+** Build the website
+
+Build the website using Nix:
+
+#+begin_src bash
+nix run .#deploy
+#+end_src
+
+The files are placed in ~./public~.
+
+** Starting the development server
+
+The development server compiles the pages, hot reloads them on any changes and
+serves the files locally using hunchentoot. You can run just the server using Nix:
+
+#+begin_src bash
+nix run
+#+end_src
+
+Or simply load the ASDF system in the REPL and run:
+
+#+begin_src lisp
+(site:start)
+#+end_src
