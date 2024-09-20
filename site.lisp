@@ -1,6 +1,8 @@
 (in-package #:site)
 
+(setf navi:*hot-reload-p* t)
 (setf navi:*output-dir* (out-path))
+
 (navi:add-asset (asset-path "favicon.ico"))
 (navi:add-asset (asset-path "icon-github.svg"))
 (navi:add-asset (asset-path "icon-rss.svg"))
@@ -162,7 +164,6 @@
 
 (defun start ()
   (build (out-path))
-  (setf navi:*hot-reload-p* t)
   (navi:start))
 
 (defun stop ()

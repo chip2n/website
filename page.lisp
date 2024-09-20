@@ -5,7 +5,8 @@
      (:head
        (:link :rel "stylesheet" :type "text/css" :href "style.css")
        (:link :rel "stylesheet" :type "text/css" :href "prism.css")
-       (:script :type "text/javascript" :src "socket.js")
+       (when navi:*hot-reload-p*
+         (:script :type "text/javascript" :src "socket.js"))
        (:meta :name "viewport" :content "width=device-width, initial-scale=1"))
      (:body
        (:div :id "root-container"
