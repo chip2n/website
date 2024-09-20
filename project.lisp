@@ -62,15 +62,15 @@
    :background-color "#1F2228"
    :border "1px solid #FFFFFF20"
    :border-radius "16px"
-   :padding "0px 48px 0px 20px"
-   
+   :padding "0px 24px 0px 24px"
+
    (ul
     :padding-inline-start "24px")
 
    ((> ul)
     :padding 0
 
-<    ((> li)
+    ((> li)
      :list-style-type "none"
      :margin 0
      :padding 0))))
