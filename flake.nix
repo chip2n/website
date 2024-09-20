@@ -5,8 +5,6 @@
   };
   outputs = { self, nixpkgs, ... }: let
     system = "x86_64-linux";
-    name = "site";
-    src = ./.;
     pkgs = nixpkgs.legacyPackages.${system};
     trivial-file-watch = pkgs.sbcl.buildASDFSystem {
       pname = "trivial-file-watch";
