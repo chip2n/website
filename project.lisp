@@ -24,7 +24,9 @@
   (:media "(max-width: 600px)"
           ("#project-container"
            :flex-direction "column-reverse"
-           :gap "24px")))
+           :gap "24px"))
+  (ul
+   :padding-inline-start "12px"))
 
 (navi/style:define-style game-container
   ("#game-container"
