@@ -39,11 +39,8 @@
    :display "flex"
    :flex-direction "row"
    :padding "128px 0 0 0"
-   :font-weight "bold")
-
-  ("#logo"
-   :height "20px"
-   :margin "0 8px 0 0")
+   :font-weight "bold"
+   :align-items "center")
 
   ("#site-header-menu"
    :display "flex"
@@ -51,15 +48,13 @@
    :justify-content "flex-end"
    :align-items "center")
 
-  (:media "(max-width: 600px)"
+  (:media "(max-width: 680px)"
           ("#site-header"
            :padding "64px 0 0 0"
            :flex-direction "column")
           ("#site-header-menu"
            :margin-top "8px"
-           :justify-content "center")
-          ("#logo"
-           :height "28px"))
+           :justify-content "center"))
 
   (.menu-item-icon
    :height "16px"

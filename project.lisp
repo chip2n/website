@@ -23,7 +23,6 @@
    :gap "24px")
   (:media "(max-width: 600px)"
           ("#project-container"
-           :background-color "#ff0000"
            :flex-direction "column-reverse"
            :gap "24px")))
 
