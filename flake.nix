@@ -28,8 +28,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "chip2n";
         repo = "navi";
-        rev = "1a625ad1b5d60681d664a814f8ca5c3917d1f9d1";
-        hash = "sha256-Fadu4j300kOYAIrTMZJ2CjjdUVPbSN2pI83TjBYO1Rg=";
+        rev = "cf6e2d3f0504c8ef00379061738a18d530a63f19";
+        hash = "sha256-WMeUfa7m3CLIdQ0PjAhui6nKEDzESo5Hrlr7TFljN9E=";
       };
       systems = [ "navi" ];
       lispLibs = with pkgs.sbcl.pkgs; [

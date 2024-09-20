@@ -162,6 +162,7 @@
 
 (defun start ()
   (build (out-path))
+  (setf navi:*hot-reload-p* t)
   (navi:start))
 
 (defun stop ()
