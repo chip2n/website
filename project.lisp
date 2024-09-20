@@ -6,8 +6,8 @@
 
      (page-header :title ,title :src ,src)
 
-     (:div :style "display: flex;"
-       (:div :style "flex-grow: 1; margin-right: 16px" ,@body)
+     (:div :id "project-container"
+       (:div :style "flex-grow: 1" ,@body)
        (project-sidebar ,sidebar))))
 
 (navi:define-tag project-sidebar (body attrs)
@@ -15,6 +15,17 @@
      ,@body))
 
 ;; * Styles
+
+(navi/style:define-style project-container
+  ("#project-container"
+   :display "flex"
+   :flex-direction "row"
+   :gap "24px")
+  (:media "(max-width: 600px)"
+          ("#project-container"
+           :background-color "#ff0000"
+           :flex-direction "column-reverse"
+           :gap "24px")))
 
 (navi/style:define-style game-container
   ("#game-container"
